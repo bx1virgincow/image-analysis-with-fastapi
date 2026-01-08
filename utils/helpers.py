@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO,
 
 logger = logging.getLogger("image_api")
 
-#local storage
+#local storage using the current working directory (cwd)
 IMAGE_DIRECTORY = os.path.join(os.getcwd(), "data", "images")
 os.makedirs(IMAGE_DIRECTORY, exist_ok=True)
 
@@ -25,11 +25,11 @@ def validate_image(file: UploadFile):
         raise HTTPException(status_code=400,detail="Missing filename")
 
 #an extension to check file type
-def allowed_file_type(file_type: str)->str:
-    if file_type == "image/jpeg":
-        return ".jpg"
-    if file_type == "image/png":
-        return ".png"
+def allowed_file_type(content_type: str)->str:
+    if content_type == "image/jpeg":
+        return "jpg"
+    if content_type == "image/png":
+        return "png"
     raise HTTPException(status_code=400,detail="Unsupported file type")
 
 #auth key
@@ -37,7 +37,7 @@ API_KEY = os.getenv("API_KEY")
 
 #verify the key
 async def verify_api_key(x_api_key: str = Header(None)):
-    if not API_KEY: # If no API_KEY set, skip auth (dev mode)
+    if not API_KEY:
         return
     if x_api_key != API_KEY:
         raise HTTPException(status_code=401, detail="Invalid or missing API key")

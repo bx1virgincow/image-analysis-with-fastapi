@@ -19,11 +19,6 @@ async def upload_image(file: UploadFile = File(...),
     except Exception:
         raise HTTPException(status_code=500, detail="Unexpected error")
 
-@router.post("/debug-upload")
-async def debug_upload(file: UploadFile = File(...)):
-    return {"filename": file.filename, "content_type": file.content_type}
-
-
 
 @router.post("/analyze")
 def analyze(payload: AnalyzeImageResults,

@@ -37,7 +37,7 @@ async def save_image(file: UploadFile):
     if len(content) > max_bytes:
         raise HTTPException(status_code=400, detail="file too large")
     image_id = str(uuid.uuid4())
-    ext = allowed_file_type(file.filename)
+    ext = allowed_file_type(file.content_type)
     print(f"image_id: {image_id}")
     save_path = os.path.join(IMAGE_DIRECTORY, f"{image_id}.{ext}")
 
