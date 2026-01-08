@@ -8,11 +8,14 @@
 - POST http://127.0.0.1/analyze
 
 # Assumption made
-- 
+- Assumed api key should be "test-key"
+- All request should pass through
 
 # What I would do to improve the code if it was production
 - Increase image sizes for better image processing with the model
 - Save images to digital assets platform. e.g Cloudinary
 - Log to file 
 - Include more content types
-- 
+- Secure the API-Key with environmental variables
+- Protect routes
+- Writes tests
